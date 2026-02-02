@@ -1,0 +1,22 @@
+﻿# Python
+**/.venv/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+
+# Node / builds (por si hay assets o front embebido)
+**/node_modules/
+**/dist/
+**/.vite/
+
+# Entornos/secretos
+**/.env
+**/.env.*
+!**/.env.example
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
