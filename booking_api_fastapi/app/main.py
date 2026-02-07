@@ -1,10 +1,15 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
-
 from app.routers import bookings, admin, catalog
+from app.db import engine
+from app.models import Base
 
 app = FastAPI()
+
+
+
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
