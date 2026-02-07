@@ -5,6 +5,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
 from .db import Base
+from sqlalchemy.sql import func
+
 
 class Service(Base):
     __tablename__ = "services"
@@ -25,8 +27,8 @@ class Staff(Base):
     phone = Column(Text)
     active = Column(Boolean, nullable=False, default=True)
     timezone = Column(Text, nullable=False, default="America/Asuncion")
-    created_at = Column(TIMESTAMP(timezone=True), nullable=False)
-    updated_at = Column(TIMESTAMP(timezone=True), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
 
     appointments = relationship("Appointment", back_populates="staff")
 
