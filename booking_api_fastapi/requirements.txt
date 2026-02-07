@@ -4,3 +4,4 @@ SQLAlchemy==2.0.35
 python-dotenv==1.0.1
 python-dateutil==2.9.0.post0
 psycopg2-binary
+python-3.11.9
