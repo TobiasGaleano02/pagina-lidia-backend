@@ -55,3 +55,9 @@ def availability_alias(request: Request):
         url=f"/bookings/available-slots?{request.url.query}",
         status_code=307
     )
+
+
+# ⚠️ TEMPORAL: correr seed en producción UNA VEZ
+from app.seed import main as seed_main
+
+seed_main()
