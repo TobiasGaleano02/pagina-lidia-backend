@@ -5,7 +5,25 @@ from app.routers import bookings, admin, catalog
 from app.db import engine
 from app.models import Base
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173",  # Vite
+    "http://127.0.0.1:5173",
+    "https://pagina-lidia-frontend.vercel.app",
+    # después agregamos tu dominio de producción (Vercel/Netlify) cuando lo tengas
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 
