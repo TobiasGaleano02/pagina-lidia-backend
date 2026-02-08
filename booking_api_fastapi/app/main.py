@@ -40,3 +40,9 @@ def availability_alias(request: Request):
         url=f"/bookings/available-slots?{request.url.query}",
         status_code=307,
     )
+
+@app.post("/__seed")
+def run_seed():
+    from app.seed import main as seed_main
+    seed_main()
+    return {"ok": True}
