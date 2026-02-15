@@ -32,6 +32,8 @@ class Staff(Base):
 
     appointments = relationship("Appointment", back_populates="staff")
 
+    
+
 class StaffSchedule(Base):
     __tablename__ = "staff_schedules"
     id = Column(Integer, primary_key=True)
