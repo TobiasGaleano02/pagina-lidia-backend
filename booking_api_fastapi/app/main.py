@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 
 from app.routers import bookings, admin, catalog
-from app.db import engine
-from app.models import Base
+from app.db import engine, Base
+import app.models  # asegura que se registren los modelos
+
+# ✅ crea tablas si no existen
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -22,8 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ crea tablas si no existen
-Base.metadata.create_all(bind=engine)
+
 
 # Routers
 app.include_router(catalog.router)
