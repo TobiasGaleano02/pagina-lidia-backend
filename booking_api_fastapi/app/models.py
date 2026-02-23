@@ -1,11 +1,11 @@
 from sqlalchemy import (
-    Column, Integer, String, Boolean, Text, ForeignKey, CheckConstraint,
-    Time, SmallInteger, DateTime
+    Column, Integer, Boolean, Text, ForeignKey,
+    Time, SmallInteger
 )
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import relationship
-from .db import Base
 from sqlalchemy.sql import func
+from .db import Base
 
 
 class Service(Base):
@@ -27,11 +27,11 @@ class Staff(Base):
     phone = Column(Text)
     active = Column(Boolean, nullable=False, default=True)
     timezone = Column(Text, nullable=False, default="America/Asuncion")
+
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
 
     appointments = relationship("Appointment", back_populates="staff")
-
     
 
 class StaffSchedule(Base):
