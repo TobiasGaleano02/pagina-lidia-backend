@@ -61,7 +61,7 @@ def admin_list_appointments(
       b.status,
       b.starts_at      AS start_utc,
       b.ends_at        AS end_utc
-    FROM bookings b
+    FROM appointments b
     LEFT JOIN services s ON s.id = b.service_id
     LEFT JOIN staff    st ON st.id = b.staff_id
     WHERE {" AND ".join(where)}
@@ -90,7 +90,7 @@ def patch_appointment(
     # Traer booking + duración del servicio
     row = db.execute(text("""
         SELECT b.*, s.duration_minutes
-        FROM bookings b
+        FROM appointments b
         JOIN services s ON s.id = b.service_id
         WHERE b.id = :id
     """), {"id": appt_id}).mappings().first()
@@ -115,7 +115,7 @@ def patch_appointment(
         check_staff = new_staff if new_staff is not None else row["staff_id"]
         clash = db.execute(text("""
             SELECT 1
-            FROM bookings
+            FROM appointments
             WHERE staff_id = :staff_id
               AND id <> :id
               AND status = 'confirmed'
@@ -145,7 +145,7 @@ def patch_appointment(
         return {"ok": True}
 
     db.execute(text(f"""
-        UPDATE bookings
+        UPDATE appointments
         SET {", ".join(sets)}
         WHERE id = :id
     """), params)
@@ -164,7 +164,7 @@ def patch_appointment(
           b.status,
           b.starts_at      AS start_utc,
           b.ends_at        AS end_utc
-        FROM bookings b
+        FROM appointments b
         LEFT JOIN services s ON s.id = b.service_id
         LEFT JOIN staff    st ON st.id = b.staff_id
         WHERE b.id = :id

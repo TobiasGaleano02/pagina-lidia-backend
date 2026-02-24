@@ -59,7 +59,7 @@ def create_booking(payload: BookingIn, db=Depends(get_db)):
     # 4) Insertar
     try:
         row = db.execute(text("""
-            INSERT INTO bookings
+            INSERT INTO appointments
                 (service_id, staff_id, customer_name, customer_phone, starts_at, ends_at, price, status)
             VALUES
                 (:service_id, :staff_id, :name, :phone, :start, :end, :price, 'confirmed')
@@ -123,7 +123,7 @@ def get_available_slots(
     # 5) reservas confirmadas que pisan esa ventana
     taken = db.execute(text("""
         SELECT starts_at, ends_at
-        FROM bookings
+        FROM appointments
         WHERE staff_id = :sid
           AND status = 'confirmed'
           AND starts_at < :work_end
