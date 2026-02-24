@@ -10,7 +10,7 @@ router = APIRouter(prefix="/bookings", tags=["bookings"])
 class BookingIn(BaseModel):
     service_id: int
     staff_id: int
-    customer_name: str = Field(min_length=2)
+    client_name: str = Field(min_length=2)
     customer_phone: str | None = ""           # ← tolera vacío
     starts_at: datetime                        # ej: "2025-09-02T17:30:00-04:00"
 
@@ -67,7 +67,7 @@ def create_booking(payload: BookingIn, db=Depends(get_db)):
         """), {
             "service_id": payload.service_id,
             "staff_id": payload.staff_id,
-            "name": payload.customer_name,
+            "name": payload.client_name,
             "phone": payload.customer_phone or "",
             "start": start,
             "end": ends_at,
