@@ -47,7 +47,7 @@ def create_booking(payload: BookingIn, db=Depends(get_db)):
     # 3) Solapamientos para el mismo staff (confirmed), SIN tsrange
     clash = db.execute(text("""
         SELECT 1
-        FROM bookings
+        FROM appointments
         WHERE staff_id = :staff_id
           AND status = 'confirmed'
           AND NOT (:end <= starts_at OR :start >= ends_at)
