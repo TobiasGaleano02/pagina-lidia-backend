@@ -11,15 +11,15 @@ class BookingIn(BaseModel):
     service_id: int
     staff_id: int
     client_name: str = Field(min_length=2)
-    customer_phone: str | None = ""           # ← tolera vacío
+    client_phone: str | None = ""           # ← tolera vacío
     starts_at: datetime                        # ej: "2025-09-02T17:30:00-04:00"
 
 class BookingOut(BaseModel):
     id: int
     service_id: int
     staff_id: int
-    customer_name: str
-    customer_phone: str
+    client_name: str
+    client_phone: str
     starts_at: datetime
     ends_at: datetime
     price: int
@@ -68,7 +68,7 @@ def create_booking(payload: BookingIn, db=Depends(get_db)):
             "service_id": payload.service_id,
             "staff_id": payload.staff_id,
             "name": payload.client_name,
-            "phone": payload.customer_phone or "",
+            "phone": payload.client_phone or "",
             "start": start,
             "end": ends_at,
             "price": int(svc["price"]),
